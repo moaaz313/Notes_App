@@ -1,8 +1,10 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 class CustomSearchIcon extends StatelessWidget {
-  const CustomSearchIcon({super.key});
-
+  CustomSearchIcon({super.key , required this.icon});
+  IconData? icon;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,7 +15,10 @@ class CustomSearchIcon extends StatelessWidget {
           color: Colors.white.withOpacity(0.05)),
       child: IconButton(
         onPressed: () {},
-        icon: const Icon(Icons.search,size: 22,),
+        icon:  Icon(
+          icon,
+          size: 22,
+        ),
       ),
     );
   }

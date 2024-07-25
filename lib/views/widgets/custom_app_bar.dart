@@ -1,21 +1,23 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'custom_search_icon.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
-
+  CustomAppBar({super.key, required this.title, required this.icon});
+  String title;
+  IconData? icon;
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       children: [
         Text(
-          "Notes App",
-          style: TextStyle(fontSize: 22),
+          title,
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
-        Spacer(),
-        CustomSearchIcon(),
+        const Spacer(),
+         CustomSearchIcon(icon: icon,),
       ],
     );
   }
