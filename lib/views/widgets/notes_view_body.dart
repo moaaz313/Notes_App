@@ -8,8 +8,8 @@ class NotesViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 18),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 18),
       child: SafeArea(
         child: Column(
           children: [
@@ -17,11 +17,11 @@ class NotesViewBody extends StatelessWidget {
               title: " Note",
               icon: Icons.search,
             ),
-            const SizedBox(
+            SizedBox(
               height: 16,
             ),
             // todo > Using Expanded in this line to avoid error because
-            const Expanded(child: NotesListView()),
+            Expanded(child: NotesListView()),
           ],
         ),
       ),
