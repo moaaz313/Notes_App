@@ -1,6 +1,10 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: depend_on_referenced_packages, avoid_print
 
-import 'custom_text_field.dart';
+import 'package:flutter/material.dart';
+import 'package:notes/cubit/add_notes_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'add_note_form.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class ShowModelBottomSheet extends StatelessWidget {
   const ShowModelBottomSheet({super.key});
@@ -10,40 +14,22 @@ class ShowModelBottomSheet extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            CustomTextFormField(hint: 'title'),
-            const SizedBox(
-              height: 8,
-            ),
-            CustomTextFormField(
-              hint: "content",
-              maxline: 5,
-            ),
-            const SizedBox(
-              height: 100,
-            ),
-            const CustomElevatedButton(),
-            const SizedBox(
-              height: 30,
-            ),
-          ],
+        child: BlocConsumer<AddNotesCubit, AddNotesState>(
+          listener: (context, state) {
+            if (state is AddNotesFailuer) {
+              print('failed ${state.errMessage}');
+            }
+            if (state is AddNotesSuccess) {
+              Navigator.pop(context);
+            }
+          },
+          builder: (context, state) {
+            return ModalProgressHUD(
+                inAsyncCall: state is AddNotesLoading ? true : false,
+                child: const AddNoteForm());
+          },
         ),
       ),
     );
-  }
-}
-
-class CustomElevatedButton extends StatelessWidget {
-  const CustomElevatedButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            fixedSize: const Size(double.maxFinite, 55),
-            backgroundColor: Colors.green),
-        onPressed: () {},
-        child: const Text("Add"));
   }
 }
