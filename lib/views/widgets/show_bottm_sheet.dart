@@ -24,10 +24,13 @@ class ShowModelBottomSheet extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            // AbsorbPointer => This widget prevents the user from controlling the field 
+            // AbsorbPointer => This widget prevents the user from controlling the field
             return AbsorbPointer(
                 absorbing: state is AddNotesLoading ? true : false,
-                child: const SingleChildScrollView(child: AddNoteForm()));
+                child: Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: const SingleChildScrollView(child: AddNoteForm())));
           },
         ),
       ),
