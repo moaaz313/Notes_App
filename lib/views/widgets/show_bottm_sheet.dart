@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:notes/cubit/add_notes_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'add_note_form.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class ShowModelBottomSheet extends StatelessWidget {
   const ShowModelBottomSheet({super.key});
@@ -25,8 +24,9 @@ class ShowModelBottomSheet extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            return ModalProgressHUD(
-                inAsyncCall: state is AddNotesLoading ? true : false,
+            // AbsorbPointer => This widget prevents the user from controlling the field 
+            return AbsorbPointer(
+                absorbing: state is AddNotesLoading ? true : false,
                 child: const SingleChildScrollView(child: AddNoteForm()));
           },
         ),

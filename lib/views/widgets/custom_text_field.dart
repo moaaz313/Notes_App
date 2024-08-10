@@ -22,6 +22,7 @@ class CustomTextFormField extends StatelessWidget {
         cursorColor: Colors.greenAccent,
         maxLines: maxline,
         decoration: InputDecoration(
+          errorBorder: buildBorder(Colors.redAccent),
           enabledBorder: buildBorder(),
           focusedBorder: buildBorder(Colors.blueGrey),
           hintText: hint,

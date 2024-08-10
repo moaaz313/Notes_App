@@ -7,7 +7,6 @@ import 'package:notes/simple_bloc_observer.dart';
 import 'package:notes/views/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 void main() async {
   await Hive.initFlutter();
   Bloc.observer = SimpleBlocObserver();
@@ -18,7 +17,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
