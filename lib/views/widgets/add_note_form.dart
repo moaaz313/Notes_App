@@ -6,6 +6,7 @@ import 'package:notes/models/note_model.dart';
 import 'custom_text_field.dart';
 import 'elvated_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart'; // For BlocProvider
+import 'package:intl/intl.dart'; // Import this for date formatting
 
 class AddNoteForm extends StatefulWidget {
   const AddNoteForm({
@@ -49,12 +50,15 @@ class _AddNoteFormState extends State<AddNoteForm> {
           BlocBuilder<AddNotesCubit, AddNotesState>(
             builder: (context, state) {
               return CustomElevatedButton(
-                isLoading: state is AddNotesLoading ? true : false ,
+                isLoading: state is AddNotesLoading ? true : false,
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
+                    var currentDate = DateTime.now();
+                    var currentDateFormat =
+                        DateFormat.yMd().format(currentDate);
                     var noteModel = NoteModel(
-                        date: DateTime.now().toString(),
+                        date: currentDateFormat,
                         color: Colors.blueGrey.value,
                         subTitle: subTitle!,
                         title: title!);
