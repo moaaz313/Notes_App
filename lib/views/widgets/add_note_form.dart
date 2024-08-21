@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:notes/cubit/add_notes_cubit.dart';
 import 'package:notes/models/note_model.dart';
+import 'color_list_view.dart';
 import 'custom_text_field.dart';
 import 'elvated_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart'; // For BlocProvider
@@ -47,6 +48,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
           const SizedBox(
             height: 20,
           ),
+          const ColorListView(),
           BlocBuilder<AddNotesCubit, AddNotesState>(
             builder: (context, state) {
               return CustomElevatedButton(
@@ -59,7 +61,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
                         DateFormat.yMd().format(currentDate);
                     var noteModel = NoteModel(
                         date: currentDateFormat,
-                        color: Colors.blueGrey.value,
+                        color: Colors.red.value,
                         subTitle: subTitle!,
                         title: title!);
                     BlocProvider.of<AddNotesCubit>(context).addNote(noteModel);
