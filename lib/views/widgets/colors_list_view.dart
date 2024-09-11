@@ -1,12 +1,16 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
-import 'package:notes/cubit/add_notes_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../constants.dart';
+import '../../cubit/add_notes_cubit.dart';
 
 class ColorItem extends StatelessWidget {
   const ColorItem({super.key, required this.isActive, required this.color});
+
   final bool isActive;
+
   final Color color;
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,7 @@ class ColorItem extends StatelessWidget {
             radius: 38,
             backgroundColor: Colors.white,
             child: CircleAvatar(
-              radius: 33,
+              radius: 34,
               backgroundColor: color,
             ),
           )
@@ -26,42 +30,35 @@ class ColorItem extends StatelessWidget {
   }
 }
 
-class ColorListView extends StatefulWidget {
-  const ColorListView({super.key});
+class ColorsListView extends StatefulWidget {
+  const ColorsListView({super.key});
 
   @override
-  State<ColorListView> createState() => _ColorListViewState();
+  State<ColorsListView> createState() => _ColorsListViewState();
 }
 
-class _ColorListViewState extends State<ColorListView> {
+class _ColorsListViewState extends State<ColorsListView> {
   int currentIndex = 0;
 
-  List<Color> colors = [
-    Colors.red,
-    Colors.blue,
-    Colors.orange,
-    Colors.deepOrange,
-    Colors.blueGrey
-  ];
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 38 * 3,
+      height: 38 * 2,
       child: ListView.builder(
-        itemCount: colors.length,
+        itemCount: kColors.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 6),
             child: GestureDetector(
               onTap: () {
                 currentIndex = index;
-                BlocProvider.of<AddNotesCubit>(context).color = colors[index];
+                BlocProvider.of<AddNotesCubit>(context).color = kColors[index];
                 setState(() {});
               },
               child: ColorItem(
-                color: colors[index],
-                isActive: currentIndex == index ? true : false,
+                color: kColors[index],
+                isActive: currentIndex == index,
               ),
             ),
           );

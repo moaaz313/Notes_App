@@ -4,4 +4,6 @@ part of 'display_notes_cubit.dart';
 sealed class DisplayNotesState {}
 
 final class DisplayNotesInitial extends DisplayNotesState {}
+final class DisplayNotesSuccess extends DisplayNotesState {}
+
 

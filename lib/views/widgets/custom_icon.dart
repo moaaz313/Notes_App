@@ -1,24 +1,26 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: use_super_parameters
 
 import 'package:flutter/material.dart';
 
 class CustomIcon extends StatelessWidget {
-  CustomIcon({super.key, required this.icon, this.onPressed});
-  IconData? icon;
+  const CustomIcon({Key? key, required this.icon, this.onPressed})
+      : super(key: key);
+
   final void Function()? onPressed;
+  final IconData icon;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 41,
-      width: 41,
+      height: 46,
+      width: 46,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          color: Colors.white.withOpacity(0.05)),
+          color: Colors.white.withOpacity(.05),
+          borderRadius: BorderRadius.circular(16)),
       child: IconButton(
         onPressed: onPressed,
         icon: Icon(
           icon,
-          size: 22,
+          size: 28,
         ),
       ),
     );

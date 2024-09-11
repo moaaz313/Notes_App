@@ -7,8 +7,9 @@ part 'display_notes_state.dart';
 class DisplayNotesCubit extends Cubit<DisplayNotesState> {
   DisplayNotesCubit() : super(DisplayNotesInitial());
   List<NoteModel>? notes;
-  getAllNotes() async {
+  getAllNotes()  {
     var notesBox = Hive.box<NoteModel>('notes_box');
     notes = notesBox.values.toList();
+    emit(DisplayNotesSuccess());
   }
 }

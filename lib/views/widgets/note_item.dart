@@ -1,12 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:notes/models/note_model.dart';
+// ignore_for_file: use_super_parameters, depend_on_referenced_packages
 
-import '../edit_note_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../cubit/display_notes_cubit.dart';
+import '../../models/note_model.dart';
+import '../note_detail_view.dart';
 
 class NoteItem extends StatelessWidget {
-  const NoteItem({super.key, required this.note, required this.onPress});
+  const NoteItem({Key? key, required this.note}) : super(key: key);
+
   final NoteModel note;
-  final void Function()? onPress;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -14,56 +18,62 @@ class NoteItem extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) {
-            return EditNoteScreen(
+            return NoteDetailView(
               note: note,
             );
           }),
         );
       },
       child: Container(
-        margin: const EdgeInsets.only(bottom: 5),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: Colors.blueGrey.withOpacity(0.8)),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                title: Text(
-                  note.title,
-                  style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
-                subtitle: Padding(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: Text(
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    note.subTitle,
-                    style: TextStyle(
-                        fontSize: 14, color: Colors.black.withOpacity(0.5)),
-                  ),
-                ),
-                trailing: IconButton(
-                  onPressed: onPress,
-                  icon: const Icon(Icons.delete),
+          color: Color(note.color),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        padding: const EdgeInsets.only(left: 16, top: 24, bottom: 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            ListTile(
+              title: Text(
+                note.title,
+                style: const TextStyle(
+                  fontSize: 26,
                   color: Colors.black,
                 ),
               ),
-              const SizedBox(
-                height: 16,
+              subtitle: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Text(
+                  note.subTitle,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black.withOpacity(.4),
+                  ),
+                ),
               ),
-              Text(
+              trailing: IconButton(
+                onPressed: () {
+                  note.delete();
+
+                  BlocProvider.of<DisplayNotesCubit>(context).getAllNotes();
+                },
+                icon: const Icon(
+                  Icons.delete,
+                  color: Colors.black,
+                  size: 30,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Text(
                 note.date,
-                style: TextStyle(color: Colors.black.withOpacity(0.5)),
-              )
-            ],
-          ),
+                style: TextStyle(
+                  color: Colors.black.withOpacity(.4),
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );

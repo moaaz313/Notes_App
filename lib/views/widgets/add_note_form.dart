@@ -1,18 +1,19 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, use_super_parameters
 
 import 'package:flutter/material.dart';
-import 'package:notes/cubit/add_notes_cubit.dart';
-import 'package:notes/models/note_model.dart';
-import 'color_list_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+
+import '../../cubit/add_notes_cubit.dart';
+import '../../models/note_model.dart';
+import 'colors_list_view.dart';
+import 'custom_button.dart';
 import 'custom_text_field.dart';
-import 'elvated_button.dart';
-import 'package:flutter_bloc/flutter_bloc.dart'; // For BlocProvider
-import 'package:intl/intl.dart'; // Import this for date formatting
 
 class AddNoteForm extends StatefulWidget {
   const AddNoteForm({
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<AddNoteForm> createState() => _AddNoteFormState();
@@ -20,7 +21,9 @@ class AddNoteForm extends StatefulWidget {
 
 class _AddNoteFormState extends State<AddNoteForm> {
   final GlobalKey<FormState> formKey = GlobalKey();
+
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+
   String? title, subTitle;
   @override
   Widget build(BuildContext context) {
@@ -29,52 +32,58 @@ class _AddNoteFormState extends State<AddNoteForm> {
       autovalidateMode: autovalidateMode,
       child: Column(
         children: [
-          CustomTextFormField(
-            hint: 'title',
+          const SizedBox(
+            height: 32,
+          ),
+          CustomTextField(
             onSaved: (value) {
               title = value;
             },
+            hint: 'title',
           ),
           const SizedBox(
-            height: 8,
+            height: 16,
           ),
-          CustomTextFormField(
-            hint: "content",
-            maxline: 5,
+          CustomTextField(
             onSaved: (value) {
               subTitle = value;
             },
+            hint: 'content',
+            maxLines: 5,
           ),
           const SizedBox(
-            height: 20,
+            height: 32,
           ),
-          const ColorListView(),
+          const ColorsListView(),
+          const SizedBox(
+            height: 32,
+          ),
           BlocBuilder<AddNotesCubit, AddNotesState>(
             builder: (context, state) {
-              return CustomElevatedButton(
+              return CustomButton(
                 isLoading: state is AddNotesLoading ? true : false,
-                onPressed: () {
+                onTap: () {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
                     var currentDate = DateTime.now();
-                    var currentDateFormat =
-                        DateFormat.yMd().format(currentDate);
+                    var formattedCurrentDate =
+                        DateFormat('dd-MM-yyyy').format(currentDate);
                     var noteModel = NoteModel(
-                        date: currentDateFormat,
-                        color: Colors.red.value,
+                        title: title!,
                         subTitle: subTitle!,
-                        title: title!);
+                        date: formattedCurrentDate,
+                        color: Colors.blue.value);
                     BlocProvider.of<AddNotesCubit>(context).addNote(noteModel);
                   } else {
                     autovalidateMode = AutovalidateMode.always;
+                    setState(() {});
                   }
-                  setState(() {});
                 },
               );
             },
           ),
           const SizedBox(
-            height: 10,
+            height: 16,
           ),
         ],
       ),

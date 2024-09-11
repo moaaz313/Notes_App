@@ -1,40 +1,43 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: use_super_parameters, depend_on_referenced_packages
 
-import 'package:flutter/widgets.dart';
-import 'package:notes/cubit/display_notes_cubit.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes/cubit/display_notes_cubit.dart';
+
 import '../../models/note_model.dart';
 import 'note_item.dart';
 
-class NotesListView extends StatefulWidget {
-  const NotesListView({super.key});
+class NotesListView extends StatelessWidget {
+  const NotesListView({Key? key}) : super(key: key);
 
-  @override
-  State<NotesListView> createState() => _NotesListViewState();
-}
-
-class _NotesListViewState extends State<NotesListView> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DisplayNotesCubit, DisplayNotesState>(
       builder: (context, state) {
         List<NoteModel> notes =
             BlocProvider.of<DisplayNotesCubit>(context).notes ?? [];
-        return ListView.builder(
-          itemCount: notes.length,
-          itemBuilder: (context, index) {
-            final note = notes[index];
-            return NoteItem(
-              note: notes[index],
-              onPress: () {
-                note.delete();
-                setState(() {
-                  BlocProvider.of<DisplayNotesCubit>(context).getAllNotes();
-                });
+        if (notes.isNotEmpty) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: ListView.builder(
+              itemCount: notes.length,
+              padding: EdgeInsets.zero,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: NoteItem(
+                    note: notes[index],
+                  ),
+                );
               },
-            );
-          },
-        );
+            ),
+          );
+        } else {
+          // Display image when no notes are available
+          return Center(
+            child: Image.asset("assets/svgs/home.png"),
+          );
+        }
       },
     );
   }

@@ -1,39 +1,30 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: use_super_parameters
 
 import 'package:flutter/material.dart';
 
-import 'custom_search_icon.dart';
+import 'custom_icon.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar(
-      {super.key,
-      required this.title,
-      required this.icon,
-      this.isBack = false,
-       this.onPress});
-  final String title;
-  final IconData? icon;
-  final bool isBack;
-  final void Function()? onPress;
+      {Key? key, required this.title, required this.icon, this.onPressed})
+      : super(key: key);
 
+  final String title;
+  final IconData icon;
+  final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        isBack
-            ? IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.arrow_back))
-            : Container(),
         Text(
           title,
-          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          style: const TextStyle(
+            fontSize: 28,
+          ),
         ),
-        const Spacer(),
         CustomIcon(
-          onPressed: onPress,
+          onPressed: onPressed,
           icon: icon,
         ),
       ],
