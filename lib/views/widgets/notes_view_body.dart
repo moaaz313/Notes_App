@@ -15,29 +15,31 @@ class NotesViewBody extends StatefulWidget {
 }
 
 class _NotesViewBodyState extends State<NotesViewBody> {
-
   @override
   void initState() {
-   BlocProvider.of<DisplayNotesCubit>(context).getAllNotes();
+    BlocProvider.of<DisplayNotesCubit>(context).getAllNotes();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding:  EdgeInsets.symmetric(horizontal: 24),
-      child: Column(
-        children:  [
-          SizedBox(
-            height: 50,
-          ),
-          CustomAppBar(
-            title: 'Notes',
-            icon: Icons.search,
-          ),
-          Expanded(
-            child: NotesListView(),
-          ),
-        ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+      child: SafeArea(
+        child: Column(
+          children: [
+            CustomAppBar(
+              x: () {},
+              icon: Icons.search,
+              isIcon: false,
+              isBack: false,
+              title: 'Notes App',
+            ),
+            const Expanded(
+              child: NotesListView(),
+            ),
+          ],
+        ),
       ),
     );
   }

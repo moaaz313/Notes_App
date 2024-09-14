@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:notes/views/edit_note_screen.dart';
 import '../../models/note_model.dart';
+import 'widgets/custom_app_bar.dart';
 
 class NoteDetailView extends StatefulWidget {
   final NoteModel note;
@@ -25,13 +26,19 @@ class _NoteDetailViewState extends State<NoteDetailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Note Details'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.edit),
+        body: SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          CustomAppBar(
+            x: () {
+              Navigator.pop(context);
+            },
+            isIcon: true,
+            isBack: true,
+            title: ' Note Details ',
+            icon: Icons.edit,
             onPressed: () async {
-              // Navigate to edit screen and wait for result
               final updatedNote = await Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -47,30 +54,30 @@ class _NoteDetailViewState extends State<NoteDetailView> {
               }
             },
           ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              currentNote.title,
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  currentNote.title,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  currentNote.subTitle,
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 16),
-            Text(
-              currentNote.subTitle,
-              style: const TextStyle(
-                fontSize: 18,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ]),
       ),
-    );
+    ));
   }
 }

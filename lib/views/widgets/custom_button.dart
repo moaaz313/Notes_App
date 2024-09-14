@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({super.key, this.onTap, this.isLoading = false});
@@ -16,9 +15,9 @@ class CustomButton extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         height: 55,
         decoration: BoxDecoration(
-            color: kPrimaryColor,
+            color:const Color(0xff3498db),
             borderRadius: BorderRadius.circular(
-              8,
+              14,
             )),
         child: Center(
           child: isLoading
