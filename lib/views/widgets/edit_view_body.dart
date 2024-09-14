@@ -64,7 +64,7 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
                   content = value;
                 },
                 initialValue: widget.note.subTitle,
-                maxLines: 5,
+                maxLines: 7,
               ),
               const SizedBox(
                 height: 16,

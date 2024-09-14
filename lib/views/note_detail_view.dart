@@ -29,54 +29,56 @@ class _NoteDetailViewState extends State<NoteDetailView> {
         body: SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          CustomAppBar(
-            x: () {
-              Navigator.pop(context);
-            },
-            isIcon: true,
-            isBack: true,
-            title: ' Note Details ',
-            icon: Icons.edit,
-            onPressed: () async {
-              final updatedNote = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EditNoteScreen(note: currentNote),
-                ),
-              );
-
-              // If a note was updated, refresh the UI
-              if (updatedNote != null) {
-                setState(() {
-                  currentNote = updatedNote;
-                });
-              }
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  currentNote.title,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w400,
+        child: SingleChildScrollView(
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            CustomAppBar(
+              x: () {
+                Navigator.pop(context);
+              },
+              isIcon: true,
+              isBack: true,
+              title: ' Note Details ',
+              icon: Icons.edit,
+              onPressed: () async {
+                final updatedNote = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditNoteScreen(note: currentNote),
                   ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  currentNote.subTitle,
-                  style: const TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-              ],
+                );
+          
+                // If a note was updated, refresh the UI
+                if (updatedNote != null) {
+                  setState(() {
+                    currentNote = updatedNote;
+                  });
+                }
+              },
             ),
-          ),
-        ]),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    currentNote.title,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    currentNote.subTitle,
+                    style: const TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ]),
+        ),
       ),
     ));
   }
