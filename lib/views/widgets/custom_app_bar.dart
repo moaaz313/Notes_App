@@ -24,8 +24,8 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      //mainAxisAlignment: MainAxisAlignment.start,
+      //crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         IconButton(
           padding: EdgeInsets.zero,
@@ -35,12 +35,9 @@ class CustomAppBar extends StatelessWidget {
             size: 25,
           ),
         ),
-        const SizedBox(
-          width: 8,
-        ),
         Text(
           title,
-          style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
         ),
         const Spacer(),
         CustomIcon(

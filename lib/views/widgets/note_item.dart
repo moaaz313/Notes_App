@@ -29,7 +29,7 @@ class NoteItem extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color: Color(note.color),
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(20),
           ),
           padding: const EdgeInsets.only(left: 16, top: 24, bottom: 24),
           child: Column(
@@ -41,7 +41,7 @@ class NoteItem extends StatelessWidget {
                   maxLines: 3,
                   note.title,
                   style: const TextStyle(
-                    fontSize: 24,
+                    fontSize: 22,
                     color: Colors.black,
                   ),
                 ),
@@ -53,7 +53,7 @@ class NoteItem extends StatelessWidget {
                     maxLines: 3,
                     style: TextStyle(
                       fontSize: 18,
-                      color: Colors.black.withOpacity(.4),
+                      color: Colors.black.withOpacity(.5),
                     ),
                   ),
                 ),
@@ -74,7 +74,7 @@ class NoteItem extends StatelessWidget {
                 child: Text(
                   note.date,
                   style: TextStyle(
-                    color: Colors.black.withOpacity(.4),
+                    color: Colors.black.withOpacity(.5),
                   ),
                 ),
               )
